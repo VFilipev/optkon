@@ -146,7 +146,7 @@ export default {
     background-color: darkgray;
     width: 100%;
     height: 100%;
-    background-image: url(/camera-custom.png);
+    background-image: url(/img/camera-custom.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
