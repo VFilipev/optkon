@@ -1,0 +1,51 @@
+<style>
+    table td, .table th {
+      padding: .75rem;
+      vertical-align: top;
+      border-top: 1px solid #dee2e6;
+    }    
+    </style>
+    
+    <h1>  
+        {% if order.status == 'N' %}
+        Новый
+        {%else%}
+        Изменен
+        {%endif%}
+        заказ {{order.id}}</h1>
+    
+    <div> <b>ФИО</b>: {{order.name}}</div>
+    <div><b>email</b>: {{order.email}}</div>
+    <div> <b>телефон</b>: {{order.phone}}</div>
+    <hr>     
+    <table>
+        <thead>
+            <tr>
+                <!-- <th>id</th> -->
+                <th>Название</th>
+                <!-- <th>цена</th> -->
+                <th>Количество </th>
+                <!-- <th>Итого</th> -->
+            </tr>
+        </thead>
+        <tbody>
+            {%for item in order.orderitem_set.all %}
+            <tr>
+                <!-- <td>{{item.goods.id}}</td> -->
+                <td>{{item.product.name}}</td>
+                <!-- <td>{{item.price}}</td> -->
+                <td align="center">{{item.count}}</td>
+                <!-- <td>{{item.total_cost}}</td> -->
+             </tr>
+             {%endfor%}
+            <!-- <tr>
+                <td><b>Итого</b></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{order.total_cost}}</td>
+             </tr> -->
+     
+        </tbody>
+    </table>
+    
