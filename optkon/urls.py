@@ -18,7 +18,7 @@ from django.urls import path, include, re_path
 from django.conf.urls.static import static
 from django.conf import settings
 from rest_framework import routers
-from catalog.views import ProductViewSet
+from catalog.views import ProductViewSet, index
 from order.views import OrderViewSet
 
 router = routers.DefaultRouter()
@@ -26,6 +26,7 @@ router.register(r'product', ProductViewSet)
 router.register(r'order', OrderViewSet)
 
 urlpatterns = [
+    path('',index,name="home"),
     path('admin/', admin.site.urls),
     path('api/',include(router.urls))
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
