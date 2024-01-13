@@ -5,7 +5,8 @@ from order.models import OrderItem
 from django.core.mail import send_mail
 from django.conf import settings
 from django.template.loader import render_to_string
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class ProductSetSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False)
@@ -36,6 +37,11 @@ class OrderSerializer(serializers.ModelSerializer):
                 if orderitem['product'] is not None:
                     OrderItem.objects.create(order = order, **orderitem)
         # order = {}
-        msg = render_to_string('order_mail.html', {'order':order})
-        send_mail('Заказ №%d' %order.id , msg, settings.EMAIL_HOST_USER, [settings.ADMIN_EMAIL], html_message=msg)
+        #msg = render_to_string('order_mail.html', {'order':order})
+        #send_mail('Заказ №%d' %order.id , msg, settings.EMAIL_HOST_USER, [settings.ADMIN_EMAIL], html_message=msg)
         return order
+    
+@receiver(post_save, sender=Order, dispatch_uid="send_mail")
+def s_mail(sender, instance, **kwargs):
+    msg = render_to_string('order_mail.html', {'order':instance})
+    send_mail('Заказ №%d' %instance.id , msg, settings.EMAIL_HOST_USER, [settings.ADMIN_EMAIL], html_message=msg)    
