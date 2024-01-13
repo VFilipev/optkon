@@ -18,8 +18,9 @@ from django.urls import path, include, re_path
 from django.conf.urls.static import static
 from django.conf import settings
 from rest_framework import routers
-from catalog.views import ProductViewSet, IndexView
+from catalog.views import ProductViewSet
 from order.views import OrderViewSet
+from .views import IndexView
 
 router = routers.DefaultRouter()
 router.register(r'product', ProductViewSet)
