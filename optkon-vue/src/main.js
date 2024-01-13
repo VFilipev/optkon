@@ -7,6 +7,10 @@
 // Plugins
 import { registerPlugins } from '@/plugins'
 
+
+axios.defaults.xsrfHeaderName = "X-CSRFToken"
+axios.defaults.xsrfCookieName = 'csrftoken'
+
 // Components
 import App from './App.vue'
 
